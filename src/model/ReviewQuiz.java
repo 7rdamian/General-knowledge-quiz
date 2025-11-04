@@ -4,8 +4,8 @@ package model;
 
 public class ReviewQuiz extends Quiz {
 
-    public ReviewQuiz(int size) {
-        super(size);
+    public ReviewQuiz(int size, String difficulty, String category) {
+        super(size, difficulty, category);
     }
 
     // Modifies original start method to add the questions together with the correct answers at the end of running quiz

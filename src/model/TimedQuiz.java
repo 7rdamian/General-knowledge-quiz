@@ -7,8 +7,8 @@ import java.util.Scanner;
 public class TimedQuiz extends Quiz {
     private int timeLimit;
 
-    public TimedQuiz(int size, int timeLimit) {
-        super(size);
+    public TimedQuiz(int size, String difficulty, String category, int timeLimit) {
+        super(size, difficulty, category);
         this.timeLimit = timeLimit;
     }
 
@@ -22,7 +22,7 @@ public class TimedQuiz extends Quiz {
         long startTime = System.currentTimeMillis();
         long endTime = startTime + timeLimit * 1000L;
 
-        for (Question q : super.createQuiz()) {
+        for (Question q : super.createdQuiz) {
             if (System.currentTimeMillis() > endTime) {
                 System.out.println("\nTime's up! Quiz ended.");
                 break;

@@ -26,7 +26,10 @@ public class Question {
     }
 
     public void setOptions(String[] options) {
-        this.options = options;
+        if (options != null)
+            this.options = options;
+        else
+            System.out.println("Options cannot be null!");
     }
 
     public String getCorrectAnswer() {

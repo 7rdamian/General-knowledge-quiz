@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 import service.Leaderboard;
 import model.Player;
-import service.QuestionLoader;
 import model.Quiz;
 import model.TimedQuiz;
 import model.ReviewQuiz;
@@ -12,12 +11,13 @@ import model.ReviewQuiz;
 public class Menu {
     private Quiz quiz;
     private Leaderboard leaderboard;
-    private QuestionLoader questionLoader;
     private Player player;
+    private int numQuestions;
+    private String category;
+    private String difficulty;
 
     public Menu() {
         this.leaderboard = new Leaderboard();
-        this.questionLoader = new QuestionLoader();
     }
 
     public void showMenu() {
@@ -35,8 +35,7 @@ public class Menu {
             System.out.println("2) Start a Timed Quiz");
             System.out.println("3) Start a Review Quiz");
             System.out.println("4) View Leaderboard");
-            System.out.println("5) Add a New Question");
-            System.out.println("6) Exit");
+            System.out.println("5) Exit");
 
             // Input with safety check
             System.out.print("\nEnter your choice: ");
@@ -52,31 +51,25 @@ public class Menu {
             switch (choice) {
                 // Normal Quiz
                 case 1:
-                    System.out.print("Enter the number of questions: ");
-                    int numQuestions = scanner.nextInt();
-                    scanner.nextLine();
-                    quiz = new Quiz(numQuestions);
+                    readParameters(scanner);
+                    quiz = new Quiz(numQuestions, difficulty, category);
                     runQuizAndSavePlayer(scanner, quiz);
                     break;
 
                 // Timed Quiz
                 case 2:
-                    System.out.print("Enter the number of questions: ");
-                    int timedQuestions = scanner.nextInt();
-                    scanner.nextLine();
+                    readParameters(scanner);
                     System.out.print("Enter the total time limit for the quiz (seconds): ");
                     int timeLimit = scanner.nextInt();
                     scanner.nextLine();
-                    quiz = new TimedQuiz(timedQuestions, timeLimit);
+                    quiz = new TimedQuiz(numQuestions, difficulty, category, timeLimit);
                     runQuizAndSavePlayer(scanner, quiz);
                     break;
 
                 // Review Quiz
                 case 3:
-                    System.out.print("Enter the number of questions: ");
-                    int reviewQuestions = scanner.nextInt();
-                    scanner.nextLine();
-                    quiz = new ReviewQuiz(reviewQuestions);
+                    readParameters(scanner);
+                    quiz = new ReviewQuiz(numQuestions, difficulty, category);
                     runQuizAndSavePlayer(scanner, quiz);
                     break;
 
@@ -85,13 +78,8 @@ public class Menu {
                     System.out.println(leaderboard.toString());
                     break;
 
-                // Add a new question
-                case 5:
-                    questionLoader.addQuestion();
-                    break;
-
                 // Exit
-                case 6:
+                case 5:
                     System.out.println("Thank you for playing!");
                     System.exit(0);
                     break;
@@ -104,6 +92,44 @@ public class Menu {
 
             clearScreen(scanner);
         } while (choice != 6);
+    }
+
+    public void readParameters(Scanner scanner) {
+        System.out.print("Enter the number of questions: ");
+        numQuestions = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter the difficulty (easy, medium, hard): ");
+        difficulty = scanner.nextLine();
+
+        System.out.print("Enter the category (\n" +
+                "9: General Knowledge\n" +
+                "10: Entertainment: Books\n" +
+                "11: Entertainment: Film\n" +
+                "12: Entertainment: Music\n" +
+                "13: Entertainment: Musicals & Theatres\n" +
+                "14: Entertainment: Television\n" +
+                "15: Entertainment: Video Games\n" +
+                "16: Entertainment: Board Games\n" +
+                "17: Science & Nature\n" +
+                "18: Science: Computers\n" +
+                "19: Science: Mathematics\n" +
+                "20: Mythology\n" +
+                "21: Sports\n" +
+                "22: Geography\n" +
+                "23: History\n" +
+                "24: Politics\n" +
+                "25: Art\n" +
+                "26: Celebrities\n" +
+                "27: Animals\n" +
+                "28: Vehicles\n" +
+                "29: Entertainment: Comics\n" +
+                "30: Science: Gadgets\n" +
+                "31: Entertainment: Japanese Anime & Manga\n" +
+                "32: Entertainment: Cartoon & Animations\n" +
+                "): ");
+        category = scanner.nextLine();
+        System.out.println();
     }
 
     // Starts the quiz and saves player data

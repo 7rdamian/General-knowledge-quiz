@@ -1,6 +1,6 @@
 package model;
 
-import service.QuestionLoader;
+import service.QuestionLoaderApi;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,36 +10,24 @@ import java.util.Scanner;
 // Handles the creation and running of a quiz, calculates score, picks random questions from the loaded list
 
 public class Quiz {
-    protected QuestionLoader questionLoader;
-    protected List<Question> questionList;
+    protected QuestionLoaderApi questionLoader;
     protected List<Question> createdQuiz;
     protected int size;
+    protected String difficulty;
+    protected String category;
     protected String score;
 
     // Constructor, takes as argument the number of questions in the quiz and calls method to create it
-    public Quiz(int size) {
+    public Quiz(int size, String difficulty, String category) {
         this.size = size;
-        this.createdQuiz = new ArrayList<>();
+        this.difficulty = difficulty;
+        this.category = category;
 
-        this.questionLoader = new QuestionLoader();
-        questionLoader.loadQuestions();
-        this.questionList = questionLoader.getQuestions();
+        questionLoader = new QuestionLoaderApi();
+        createdQuiz = new ArrayList<>();
 
-        this.createdQuiz = createQuiz();
-    }
-
-    // Creates quiz by picking random questions from the existing list
-    public List<Question> createQuiz() {
-        Random rand = new Random();
-        List<Question> copy = new ArrayList<>(questionList);
-        createdQuiz.clear();
-
-        for (int i = 0; i < Math.min(size, copy.size()); i++) {
-            int randomIndex = rand.nextInt(copy.size());
-            createdQuiz.add(copy.get(randomIndex));
-            copy.remove(randomIndex);
-        }
-        return createdQuiz;
+        questionLoader.fetchQuestions(difficulty, size, category);
+        createdQuiz = questionLoader.getQuestions();
     }
 
     // Starts and runs the quiz
