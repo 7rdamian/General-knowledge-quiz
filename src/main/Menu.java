@@ -1,10 +1,12 @@
+package main;
+
 import java.util.Scanner;
 
 import service.Leaderboard;
 import model.Player;
-import model.Quiz;
-import model.TimedQuiz;
-import model.ReviewQuiz;
+import model.quiz.Quiz;
+import model.quiz.TimedQuiz;
+import model.quiz.ReviewQuiz;
 
 // This class displays the menu and handles the user input
 
@@ -30,7 +32,7 @@ public class Menu {
             System.out.println("     GENERAL KNOWLEDGE QUIZ       ");
             System.out.println("==================================\n");
 
-            // Menu options
+            // main.Menu options
             System.out.println("1) Start a New Quiz");
             System.out.println("2) Start a Timed Quiz");
             System.out.println("3) Start a Review Quiz");

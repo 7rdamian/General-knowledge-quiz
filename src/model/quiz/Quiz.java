@@ -1,10 +1,10 @@
-package model;
+package model.quiz;
 
+import model.Question;
 import service.QuestionLoaderApi;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 // Handles the creation and running of a quiz, calculates score, picks random questions from the loaded list

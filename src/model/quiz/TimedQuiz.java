@@ -1,4 +1,6 @@
-package model;
+package model.quiz;
+
+import model.Question;
 
 import java.util.Scanner;
 

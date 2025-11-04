@@ -1,6 +1,8 @@
-package model;
+package model.quiz;
 
 // Child of class Quiz, adds a more extended opportunity for review at the end of the game
+
+import model.Question;
 
 public class ReviewQuiz extends Quiz {
 
