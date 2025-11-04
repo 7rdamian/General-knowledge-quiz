@@ -98,9 +98,17 @@ public class Menu {
         System.out.print("Enter the number of questions: ");
         numQuestions = scanner.nextInt();
         scanner.nextLine();
+        if (numQuestions < 1 || numQuestions > 100) {
+            System.out.println("Invalid number of questions");
+            readParameters(scanner);
+        }
 
         System.out.print("Enter the difficulty (easy, medium, hard): ");
         difficulty = scanner.nextLine();
+        if (difficulty != "easy" && category != "medium" && category != "hard") {
+            System.out.println("Invalid difficulty");
+            readParameters(scanner);
+        }
 
         System.out.print("Enter the category (\n" +
                 "9: General Knowledge\n" +
@@ -128,7 +136,13 @@ public class Menu {
                 "31: Entertainment: Japanese Anime & Manga\n" +
                 "32: Entertainment: Cartoon & Animations\n" +
                 "): ");
+
         category = scanner.nextLine();
+        if (Integer.parseInt(category) < 9 || Integer.parseInt(category) > 32) {
+            System.out.println("Invalid category");
+            readParameters(scanner);
+        }
+
         System.out.println();
     }
 
@@ -154,5 +168,4 @@ public class Menu {
             System.out.println();
         }
     }
-
 }
